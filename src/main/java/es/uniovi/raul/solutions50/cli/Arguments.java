@@ -13,7 +13,7 @@ public class Arguments {
     @Option(names = "-s", description = "GitHub organization name where the solutions are hosted. If not provided, it will try to read from the SOLUTIONS_ORG environment variable or from a '.env' file.")
     public String organization;
 
-    @Option(names = "-h", description = "The CSV file with the groups schedule")
+    @Option(names = { "-f", "--schedule-file" }, description = "The CSV file with the groups schedule")
     public String scheduleFile;
 
     @Option(names = "-n", defaultValue = ".*solution$", description = "A regular expression to identify solution repositories")

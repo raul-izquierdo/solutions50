@@ -72,8 +72,10 @@ public class ArgumentsParser {
 
         // If not provided, check if the default file exists
         File file = new File(DEFAULT_SCHEDULE_FILE);
-        if (file.exists() && file.isFile())
+        if (file.exists() && file.isFile()) {
+            System.out.printf(">> Default schedule file '%s' found.%n", DEFAULT_SCHEDULE_FILE);
             return DEFAULT_SCHEDULE_FILE;
+        }
 
         return null; // No schedule file provided and default does not exist
     }

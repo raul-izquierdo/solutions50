@@ -13,7 +13,7 @@ import picocli.CommandLine.ParameterException;
 /** Parses and validates command line arguments. */
 public class ArgumentsParser {
 
-    private static final String DEFAULT_SCHEDULE_FILE = "schedule.csv";
+    private static final String DEFAULT_SCHEDULE_FILE = "groups.csv";
 
     /**
      * Parses command line args.

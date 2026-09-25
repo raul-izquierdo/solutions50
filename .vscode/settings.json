@@ -1,6 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
     "files.exclude": {
-        "**/__pycache__/": true
+        "**/.git": false
     }
 }

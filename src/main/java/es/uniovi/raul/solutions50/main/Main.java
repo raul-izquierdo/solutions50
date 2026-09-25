@@ -156,11 +156,11 @@ public class Main {
         if (schedule.isEmpty())
             return true;
 
-        // Find teams in the schedule that are not in the organization
+        // Find groups in the schedule that have no matching team in the organization (case-insensitive)
         var missingTeams = schedule.get().getEntries().stream()
                 .map(ScheduleEntry::group)
                 .filter(teamName -> organization.teams().stream()
-                        .noneMatch(team -> team.name().equals(teamName)))
+                        .noneMatch(team -> team.name().equalsIgnoreCase(teamName)))
                 .toList();
 
         // No missing teams

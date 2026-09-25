@@ -49,7 +49,7 @@ public final class AutomaticSelection {
             return Optional.empty();
 
         return teams.stream()
-                .filter(team -> team.name().equals(matchingEntry.get().group()))
+                .filter(team -> team.name().equalsIgnoreCase(matchingEntry.get().group()))
                 .findAny();
     }
 

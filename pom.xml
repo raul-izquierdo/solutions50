@@ -60,6 +60,10 @@
                                     <!-- Allows to get the version of the JAR file during runtime -->
                                     <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                                 </manifest>
+                                <manifestEntries>
+                                    <!-- Silences the JLine native-access warning (JEP 472, JDK 24+) -->
+                                    <Enable-Native-Access>ALL-UNNAMED</Enable-Native-Access>
+                                </manifestEntries>
                             </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>

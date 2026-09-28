@@ -125,7 +125,7 @@ public final class GithubApiImpl implements GithubApi {
                         "Expected a JSON array for the team's repositories, got: " + root.getNodeType());
 
             for (JsonNode node : root) {
-                JsonNode fullNameNode = node.get("full_name");
+                JsonNode fullNameNode = node.get("name");
                 if (fullNameNode == null || !fullNameNode.isTextual())
                     throw new UnexpectedFormatException(
                             "Expected 'full_name' field of type string in each repository object, got: "

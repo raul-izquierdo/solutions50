@@ -81,9 +81,9 @@ public class Core {
 
         switch (action.type()) {
             case GRANT_ACCESS ->
-                githubApi.grantAccess(action.team().organization(), action.team().slug(), action.repository());
+                githubApi.grantAccess(action.team().organization(), action.repository(), action.team().slug());
             case REVOKE_ACCESS ->
-                githubApi.revokeAccess(action.team().organization(), action.team().slug(), action.repository());
+                githubApi.revokeAccess(action.team().organization(), action.repository(), action.team().slug());
             default -> throw new IllegalArgumentException("Unknown action type: " + action.type());
         }
         System.out.printf("Action '%s' executed successfully for team '%s' on repository '%s'.%n",

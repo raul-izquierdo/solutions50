@@ -42,7 +42,7 @@ public final class GithubApiImpl implements GithubApi {
             throws GithubApiException, IOException, InterruptedException {
 
         List<GithubTeam> teams = new ArrayList<>();
-        String url = "https://api.github.com/orgs/" + organization + "/teams";
+        String url = String.format("https://api.github.com/orgs/%s/teams?per_page=100", organization);
         HttpRequest request = createHttpRequestBuilder(url).build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -50,6 +50,10 @@ public final class GithubApiImpl implements GithubApi {
         if (response.statusCode() != HTTP_OK)
             throw new RejectedOperationException(buildErrorMessage(response.statusCode(),
                     "fetch teams", ORGANIZATION_PREFIX + organization + QUOTE_SUFFIX, response.body()));
+
+        if (getNextPageUrl(response) != null)
+            throw new GithubApiException(
+                    "The organization has more than 100 teams, but pagination of teams is not implemented.");
 
         JsonNode root = mapper.readTree(response.body());
         if (!root.isArray())

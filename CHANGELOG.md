@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [2.1.0](https://github.com/raul-izquierdo/solutions50/compare/v2.0.3...v2.1.0) - 2026/10/07
+
+
+
+
+### Changed
+
+- perf: Teams and solutions are fetched in parallel
+
+### Fixed
+
+- fix: Only 100 teams were fetched. This is more than enough for the current use case. If more than 100 teams are
+  needed, the code should be updated to fetch all teams in a paginated way. Instead of implementing pagination, a
+  error is logged when more than 100 teams are detected, and the user is advised to contact the maintainer
+
 ## [2.0.3](https://github.com/raul-izquierdo/solutions50/compare/v2.0.2...v2.0.3) - 2026/09/28
 
 

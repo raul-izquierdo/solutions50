@@ -5,6 +5,7 @@ import static es.uniovi.raul.solutions50.main.Console.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.*;
 
 import es.uniovi.raul.solutions50.cli.*;
 import es.uniovi.raul.solutions50.core.Core;
@@ -76,12 +77,25 @@ public class Main {
     //# ------------------------------------------------------------------
 
     private static Organization createOrganization(Arguments arguments, GithubApi connection)
-            throws GithubApiException, IOException, InterruptedException, InvalidOrganizationException {
-
-        var teams = fetchTeams(arguments.organization, connection);
+            throws GithubApiException, InterruptedException, InvalidOrganizationException {
 
         var solutionsDetector = new RegexSolutionDetector(arguments.solutionRegex);
-        var solutions = fetchSolutions(arguments.organization, connection, solutionsDetector);
+
+        List<GithubTeam> teams;
+        List<String> solutions;
+        try (var executor = Executors.newFixedThreadPool(2)) {
+
+            var teamsFuture = executor.submit(
+                    () -> fetchTeams(arguments.organization, connection));
+            var solutionsFuture = executor.submit(
+                    () -> fetchSolutions(arguments.organization, connection, solutionsDetector));
+
+            teams = teamsFuture.get();
+            solutions = solutionsFuture.get();
+
+        } catch (ExecutionException e) {
+            throw new GithubApiException(e.getCause().getMessage(), e.getCause());
+        }
 
         // If there are no groups or solutions, there's nothing to do. Print an informative message and exit.
         if (teams.isEmpty())

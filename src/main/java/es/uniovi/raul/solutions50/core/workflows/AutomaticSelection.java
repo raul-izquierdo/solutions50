@@ -41,7 +41,7 @@ public final class AutomaticSelection {
         return Optional.of(new UserAction(GRANT_ACCESS, guessedTeamOpt.get(), guessedSolutionOpt.get()));
     }
 
-    public Optional<GithubTeam> guessTeam(List<GithubTeam> teams, Schedule schedule) {
+    private Optional<GithubTeam> guessTeam(List<GithubTeam> teams, Schedule schedule) {
 
         Optional<ScheduleEntry> matchingEntry = schedule.findMatchingEntry(today(), currentTime());
 
@@ -53,7 +53,7 @@ public final class AutomaticSelection {
                 .findAny();
     }
 
-    public Optional<String> guessSolution(GithubTeam team, List<String> allSolutions)
+    private Optional<String> guessSolution(GithubTeam team, List<String> allSolutions)
             throws GithubApiException, IOException, InterruptedException {
 
         List<String> teamRepositories = githubApi.fetchRepositoriesForTeam(team.organization(), team.slug());

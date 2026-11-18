@@ -72,8 +72,8 @@ public class Core {
             case REVOKE_ACCESS -> "REVOKE";
         };
 
-        return Console.confirmation("Are you sure you want to %s access to '%s' for team '%s'?",
-                actionVerb, action.repository(), action.team().name());
+        return Console.confirmation("Are you sure you want to %s access for team '%s' to '%s'?",
+            actionVerb, action.team().name(), action.repository());
     }
 
     private static void executeAction(UserAction action, GithubApi githubApi)
